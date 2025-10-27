@@ -1,0 +1,36 @@
+
+services:
+  postgres:
+    container_name: db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: freq
+      POSTGRES_PASSWORD: freqAminPgData
+      POSTGRES_DB: freqDb
+    volumes:
+      - /d/MicroServices/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: dbAdmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: amin@freq.com
+      PGADMIN_DEFAULT_PASSWORD: freqAminPgAdmin
+    volumes:
+      - /d/MicroServices/pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
