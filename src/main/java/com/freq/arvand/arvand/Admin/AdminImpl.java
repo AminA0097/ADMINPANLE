@@ -8,6 +8,7 @@ import com.freq.arvand.arvand.form.LoginForm;
 import com.freq.arvand.arvand.userSession.UserActions;
 import com.freq.arvand.arvand.userSession.UserSession;
 import com.freq.arvand.arvand.userSession.UserSessionImpl;
+import com.freq.arvand.arvand.utils.ClsFounder;
 import com.freq.arvand.arvand.utils.SearchRes;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 
 @Service
 public class AdminImpl extends BaseImpl implements AdminInterface{
@@ -38,6 +40,8 @@ public class AdminImpl extends BaseImpl implements AdminInterface{
     @Override
 //    public List<Map<String, String>> fillDashboard() throws Exception{
     public List<Map<String, String>> fillDashboard(UserSession userSession) throws Exception{
+        Class<?> entityClassName = ClsFounder.getClass(this.getClass(), "Entity");
+        userSession.getUserAction().hasAction(entityClassName.getSimpleName(),ADMIN_PANEL_ACTION);
         List mainList = new ArrayList();
         StringBuilder userCount = new StringBuilder().append("select count(*) from CORES_USERS u where u.fld_deleted = 0");
         List _res = entityManager.createNativeQuery(userCount.toString()).getResultList();

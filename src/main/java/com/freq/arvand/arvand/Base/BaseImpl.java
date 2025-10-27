@@ -14,7 +14,13 @@ import java.util.List;
 
 @Transactional
 public class BaseImpl implements BaseInterface{
-    private final static String SEARCH_ACTION = "1";
+    public final static String READ_ACTION = "101";
+    public final static String EDIT_ACTION = "102";
+    public final static String SEARCH_ACTION = "103";
+    public final static String DELETE_ACTION = "104";
+
+    public final static String ADMIN_PANEL_ACTION = "205";
+
     @PersistenceContext
     private EntityManager entityManager;
     @Override

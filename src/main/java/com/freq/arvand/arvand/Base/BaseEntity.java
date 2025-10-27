@@ -11,6 +11,8 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseEntity {
 
+
+
     @Column(name = "FLD_DESC")
     private String description;
     @Column(name = "FLD_CREATED_BY")
